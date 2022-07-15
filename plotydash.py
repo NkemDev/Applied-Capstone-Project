@@ -64,7 +64,7 @@ def get_pie_chart(entered_site):
     if entered_site == 'ALL':
         fig = px.pie(filtered_df, values='class', 
         names='Launch Site', 
-        title='Success Count for all launch sites')
+        title='Total Success Launches by Site')
         return fig
     else:
         # return the outcomes piechart for a selected site
@@ -80,13 +80,13 @@ def get_pie_chart(entered_site):
                 Input(component_id='payload-slider',component_property='value')])
 def scatter(entered_site,payload):
     filtered_df = spacex_df[spacex_df['Payload Mass (kg)'].between(payload[0],payload[1])]
-    # thought reusing filtered_df may cause issues, but tried it out of curiosity and it seems to be working fine
+  
     
     if entered_site=='ALL':
-        fig=px.scatter(filtered_df,x='Payload Mass (kg)',y='class',color='Booster Version Category',title='Success count on Payload mass for all sites')
+        fig=px.scatter(filtered_df,x='Payload Mass (kg)',y='class',color='Booster Version Category',title='Correlation between Payload and Success for all Sites')
         return fig
     else:
-        fig=px.scatter(filtered_df[filtered_df['Launch Site']==entered_site],x='Payload Mass (kg)',y='class',color='Booster Version Category',title=f"Success count on Payload mass for site {entered_site}")
+        fig=px.scatter(filtered_df[filtered_df['Launch Site']==entered_site],x='Payload Mass (kg)',y='class',color='Booster Version Category',title=f"Correlation between Payload and Success for all Sites {entered_site}")
         return fig
 
 
@@ -95,3 +95,6 @@ if __name__ == '__main__':
     
     app.run_server()
 
+#deductions from the dashboard
+#KCLC-3A had the most successful launch
+#CCAFLC-40 had the highest success rate of 70%
